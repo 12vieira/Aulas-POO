@@ -1,25 +1,79 @@
 import prompt from 'prompt-sync';
-import { AlunoView } from './modulos/Aluno/views/index';
-
+import { AlunoView } from './modulos/Aluno/views/index.js';
+import { TurmaView } from './modulos/Turma/views/index.js';
 const alunoView = new AlunoView();
-
+const turmaView = new TurmaView();
 const input = prompt();
-
-function exibirMenu() {
-    console.log('\n######### MENU #############');
-    console.log('1 - Criar aluno');
-    console.log('2 - Listar todos os alunos');
-    console.log('3 - Deletar aluno por matrícula');
-    console.log('4 - Deletar todos');
-    console.log('5 - Editar aluno');
-    console.log('0 - Sair');
-    console.log('##############################');
+ 
+function menuInicial(){
+    console.log("\n+-----------------------------------+");
+    console.log("| Menu Principal                    |"),
+    console.log("+-----------------------------------+"),
+    console.log('|1 - Módulo Aluno                   |');
+    console.log('|2 - Módulo Turma                   |');
+    console.log('|3 - Módulo Professor               |');
+    console.log('|0 - Sair                           |');
+    console.log('|+----------------------------------+')
 }
-
-function main() {
+function exibirMenuAluno() {
+    console.log("\n+-----------------------------------+");
+    console.log("| Menu Aluno                        |"),
+    console.log("+-----------------------------------+"),
+    console.log("|1 - Criar Novo Aluno               |",);
+    console.log("|2 - Listar Todos os Alunos         |");
+    console.log("|3 - Excluir por Matrícula          |");
+    console.log('|4 - Excluir Todos os Alunos        |');
+    console.log('|5 - Editar Aluno por Matrícula     |');
+    console.log('|0 - Retornar ao Menu Principal     |');
+    console.log('\n+-----------------------------------+')
+}
+function exibirMenuTurma() {
+    console.log("\n+-----------------------------------+");
+    console.log("| Menu Turma                        |"),
+    console.log("+-----------------------------------+"),
+    console.log("|1 - Criar Nova Turma               |",);
+    console.log("|2 - Listar Todas as Turmas         |");
+    console.log("|3 - Excluir por Código             |");
+    console.log('|4 - Excluir Todas as Turmas        |');
+    console.log('|5 - Editar Turma por Código        |');
+    console.log('|0 - Retornar ao Menu Principal     |');
+    console.log('\n+-----------------------------------+')
+}
+function mainTurma() {
     let controle;
     do {
-        exibirMenu();
+        exibirMenuTurma();
+        controle = input('Escolha uma opção: ');
+        switch (controle) {
+            case '1':
+                turmaView.criarTurma()
+                break;
+            case '2':
+                turmaView.listarTurmas()
+                break;
+            case '3':
+                turmaView.excluirPorCod()
+                break;
+            case '4':
+                turmaView.excluirTodos()
+                break;
+            case '5':
+                turmaView.editarTurma()
+                break;
+            case '0':
+                console.log('Retornando...');
+                mainMenu();
+                break;
+            default:
+                console.log('Opção invalida, digite um numero do menu!');
+        }
+    } while (controle !== '0');
+}
+
+function mainAluno() {
+    let controle;
+    do {
+        exibirMenuAluno();
         controle = input('Escolha uma opção: ');
         switch (controle) {
             case '1':
@@ -38,7 +92,8 @@ function main() {
                 alunoView.editarAluno()
                 break;
             case '0':
-                console.log('Saindo...');
+                console.log('Retornando...');
+                mainMenu();
                 break;
             default:
                 console.log('Opção invalida, digitte um numero do menu!');
@@ -46,4 +101,28 @@ function main() {
     } while (controle !== '0');
 }
 
-main();
+function mainMenu() {
+    let controle;
+    do {
+        menuInicial();
+        controle = input('Escolha uma opção: ');
+        switch (controle) {
+            case '1':
+                mainAluno()
+                break;
+            case '2':
+                mainTurma()
+                break;
+            case '3':
+                alunoView.excluirPorMatricula()
+                break;
+            case '0':
+                console.log('Saindo...');
+                break;
+            default:
+                console.log('Opção invalida, digitte um numero do menu!');
+        }
+    } while (controle !== '0');
+} mainMenu();
+
+
