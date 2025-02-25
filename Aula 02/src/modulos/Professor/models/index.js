@@ -1,6 +1,7 @@
 import { Pessoa } from "./Pessoa";
 
 export class ProfessorModel extends Pessoa {
+    #matricula
     constructor(matricula, turma, disciplina, senha) {
         this.#matricula = matricula
         this._turma = turma;
