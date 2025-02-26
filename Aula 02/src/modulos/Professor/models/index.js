@@ -1,15 +1,9 @@
 import { Pessoa } from "./Pessoa.js";
 
 export class ProfessorModel extends Pessoa {
-    #matricula
-    constructor(matricula, turma, disciplina, senha) {
-        this.#matricula = matricula
-        this._turma = turma;
-        this._disciplina = disciplina;
-        super(senha);
-    }
-    // modificadores de acesso
-    get getMatricula(){
-        return this.#matricula
+    constructor(turma, disciplina, matricula, nome, email, telefone, senha) {
+        super(matricula,nome, email, telefone,senha);
+        this.turma = turma;
+        this.disciplina = disciplina;
     }
 }

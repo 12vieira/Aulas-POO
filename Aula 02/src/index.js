@@ -1,8 +1,11 @@
 import prompt from 'prompt-sync';
 import { AlunoView } from './modulos/Aluno/views/index.js';
 import { TurmaView } from './modulos/Turma/views/index.js';
+import { ProfessorView } from './modulos/Professor/views/index.js';
+
 const alunoView = new AlunoView();
 const turmaView = new TurmaView();
+const professorView = new ProfessorView();
 const input = prompt();
  
 function menuInicial(){
@@ -25,7 +28,19 @@ function exibirMenuAluno() {
     console.log('|4 - Excluir Todos os Alunos        |');
     console.log('|5 - Editar Aluno por Matrícula     |');
     console.log('|0 - Retornar ao Menu Principal     |');
-    console.log('\n+-----------------------------------+')
+    console.log('+-----------------------------------+')
+}
+function exibirMenuProfessor() {
+    console.log("\n+-----------------------------------+");
+    console.log("| Menu Professor                    |"),
+    console.log("+-----------------------------------+"),
+    console.log("|1 - Criar Novo Professor           |",);
+    console.log("|2 - Listar Todos os Professores    |");
+    console.log("|3 - Excluir por Matrícula          |");
+    console.log('|4 - Excluir Todos os Professores   |');
+    console.log('|5 - Editar Professor por Matrícula |');
+    console.log('|0 - Retornar ao Menu Principal     |');
+    console.log('+-----------------------------------+')
 }
 function exibirMenuTurma() {
     console.log("\n+-----------------------------------+");
@@ -37,7 +52,7 @@ function exibirMenuTurma() {
     console.log('|4 - Excluir Todas as Turmas        |');
     console.log('|5 - Editar Turma por Código        |');
     console.log('|0 - Retornar ao Menu Principal     |');
-    console.log('\n+-----------------------------------+')
+    console.log('+-----------------------------------+')
 }
 function mainTurma() {
     let controle;
@@ -62,7 +77,7 @@ function mainTurma() {
                 break;
             case '0':
                 console.log('Retornando...');
-                mainMenu();
+                menuInicial();
                 break;
             default:
                 console.log('Opção invalida, digite um numero do menu!');
@@ -93,14 +108,43 @@ function mainAluno() {
                 break;
             case '0':
                 console.log('Retornando...');
-                mainMenu();
+                menuInicial();
                 break;
             default:
                 console.log('Opção invalida, digitte um numero do menu!');
         }
     } while (controle !== '0');
 }
-
+function mainProfessor() {
+    let controle;
+    do {
+        exibirMenuProfessor();
+        controle = input('Escolha uma opção: ');
+        switch (controle) {
+            case '1':
+                professorView.criarProfessor()
+                break;
+            case '2':
+                professorView.listarProfessores()
+                break;
+            case '3':
+                professorView.excluirPorMatricula()
+                break;
+            case '4':
+                professorView.excluirTodos()
+                break;
+            case '5':
+                professorView.editarProfessor()
+                break;
+            case '0':
+                console.log('Retornando...');
+                menuInicial();
+                break;
+            default:
+                console.log('Opção invalida, digitte um numero do menu!');
+        }
+    } while (controle !== '0');
+}
 function mainMenu() {
     let controle;
     do {
@@ -114,7 +158,7 @@ function mainMenu() {
                 mainTurma()
                 break;
             case '3':
-                alunoView.excluirPorMatricula()
+                mainProfessor()
                 break;
             case '0':
                 console.log('Saindo...');
