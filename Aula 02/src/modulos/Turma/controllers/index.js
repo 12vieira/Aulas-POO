@@ -1,32 +1,49 @@
-import { turmas } from "../../../config/database.js";
+import { alunos, professores, turmas } from "../../../config/database.js";
+import { AlunoModel } from "../../Aluno/models/index.js";
 import { TurmaModel } from "../models/index.js";
+import { ProfessorModel } from "../../Professor/models/index.js";
 
 export class TurmaController {
-    criar(cod, nome, sala, capacidade){
+    criar(cod, nome, sala, capacidade, matriculaAluno, matriculaProfessor){
         try {
-            const novaTurma = new TurmaModel(cod, nome, sala, capacidade);
+            const aluno = alunos.find((aluno) => aluno.getMatricula === matriculaAluno);
+            if (!aluno || !(aluno instanceof AlunoModel)) {
+              const alunoNovo = AlunoModel();
+              alunoNovo.criar();
+              return console.log("Aluno não encontrado ou inválido");
+            }
+            const professor = professores.find((professor) => professor.getMatricula === matriculaProfessor);
+            if (!professor || !(professor instanceof ProfessorModel)) {
+              const professorNovo = ProfessorModel();
+              professorNovo.criar();
+              return console.log("Professor não encontrado ou inválido")
+            }
+          
+            const novaTurma = new TurmaModel(cod, nome, sala, capacidade, aluno, professor);
             turmas.push(novaTurma);
             console.table(novaTurma);
         } catch (error) {
             console.error("Erro ao tentar criar turma", error.message);
         }
     }
-    editar(cod, novoNome, novaSala, novaCapacidade) {
+    editar(cod, novoNome, novaSala, novaCapacidade, novoMatriculaAluno, novaMatriculaProfessor) {
         try {
-          const turma = turmas.find((turma) => turma.getcod === cod);
+          const turma = turmas.find((turma) => turma.getCod === cod);
           if (!turma) {
             return console.log("turma não encontrada!");
           }
           turma.nome = novoNome || turma.nome;
-          turma.email = novaSala || turma.sala;
-          turma.senha = novaCapacidade || turma.capacidade;
+          turma.sala = novaSala || turma.sala;
+          turma.capacidade = novaCapacidade || turma.capacidade;
+          turma.matriculaAluno = novoMatriculaAluno  || turma.matriculaAluno;
+          turma.matriculaProfessor = novaMatriculaProfessor || turma.matriculaProfessor;
         } catch (error) {
-          console.error("Erro ao tentar atualizar o turma", error.message);
+          console.error("Erro ao tentar atualizar a turma", error.message);
         }
       }
     deletarPorCod(cod) {
         try {
-          const index = turmas.findIndex((turma) => turma.getcod === cod);
+          const index = turmas.findIndex((turma) => turma.getCod === cod);
           if (index === -1) {
             return console.log("turma não encontrada");
           }
@@ -47,7 +64,7 @@ export class TurmaController {
     
     listaPorcod(cod) {
         try {
-          const turma = turmas.find((turma) => turma.getcod === cod);
+          const turma = turmas.find((turma) => turma.getCod === cod);
           if (!turma) {
             return console.log("turma não encontrada");
           }
