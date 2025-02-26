@@ -2,9 +2,9 @@ import { alunos } from "../../../config/database.js";
 import { AlunoModel } from "../models/index.js";
 import bcrypt from 'bcrypt'
 export class AlunoController {
-  criar(matricula, nome, email, senha) {
+  criar(matricula, nome, email, telefone, senha) {
     try {
-      const novoAluno = new AlunoModel(matricula, nome, email, senha);
+      const novoAluno = new AlunoModel(matricula, nome, email, telefone, senha);
       alunos.push(novoAluno);
       console.table(novoAluno);
     } catch (error) {
@@ -12,7 +12,7 @@ export class AlunoController {
     }
   }
 
-  editar(matricula, novoNome, novoEmail, novaSenha) {
+  editar(matricula, novoNome, novoEmail, novoTelefone, novaSenha) {
     try {
       const aluno = alunos.find((aluno) => aluno.getMatricula === matricula);
       if (!aluno) {
@@ -20,6 +20,7 @@ export class AlunoController {
       }
       aluno.nome = novoNome || aluno.nome;
       aluno.email = novoEmail || aluno.email;
+      aluno.telefone = novoTelefone || aluno.telefone;
       aluno.senha = novaSenha || aluno.senha;
     } catch (error) {
       console.error("Erro ao tentar atualizar o aluno", error.message);

@@ -1,5 +1,5 @@
 import prompt from "prompt-sync";
-import { AlunoController } from "../controllers/index";
+import { AlunoController } from "../controllers/index.js";
 
 const alunoController = new AlunoController();
 const input = prompt();
@@ -13,18 +13,17 @@ export class AlunoView {
     const matricula = input("Digite a matrícula: ");
     const nome = input("Digite o nome: ");
     const email = input("Digite o email: ");
+    const telefone = input("Digite o telefone: ");
     const senha = input("Digite a senha: ");
-    alunoController.criar(matricula, nome, email, senha);
+    alunoController.criar(matricula, nome, email, telefone, senha);
   }
   editarAluno() {
     const matriculaEditar = input("Digite a matrícula do aluno: ");
-    const novoNome =
-      input("Novo nome (deixe em branco para manter o mesmo): ") || null;
-    const novoEmail =
-      input("Novo email (deixe em branco para manter o mesmo): ") || null;
-    const novaSenha =
-      input("Nova senha (deixe em branco para manter a mesma): ") || null;
-    alunoController.editar(matriculaEditar, novoNome, novoEmail, novaSenha);
+    const novoNome = input("Novo nome (deixe em branco para manter o mesmo): ") || null;
+    const novoEmail = input("Novo email (deixe em branco para manter o mesmo): ") || null;
+    const novoTelefone = input("Novo telefone (deixe em branco para manter o mesmo): ") || null;
+    const novaSenha = input("Nova senha (deixe em branco para manter a mesma): ") || null;
+    alunoController.editar(matriculaEditar, novoNome, novoEmail, novoTelefone, novaSenha);
   }
   excluirPorMatricula() {
     const matriculaDeletar = input(
