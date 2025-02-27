@@ -4,8 +4,17 @@ import { TurmaModel } from "../models/index.js";
 import { ProfessorModel } from "../../Professor/models/index.js";
 
 export class TurmaController {
-    criar(cod, nome, sala, capacidade, matriculaAluno, matriculaProfessor){
+    criar(cod, nome, sala, capacidade, matriculaAluno = [], matriculaProfessor = []){
         try {
+            
+            /*const professoresValidos = matriculaProfessor.every((matricula) => {
+            const professor = professores.find((prof) => prof.matricula === matricula);
+            return professor && professor instanceof ProfessorModel;
+            });
+            if (!professoresValidos){
+              return console.log("Um ou mmais professores não encontrados ou inválidos")
+            }*/     
+          
             const aluno = alunos.find((aluno) => aluno.getMatricula === matriculaAluno);
             if (!aluno || !(aluno instanceof AlunoModel)) {
               const alunoNovo = AlunoModel();
@@ -18,7 +27,7 @@ export class TurmaController {
               professorNovo.criar();
               return console.log("Professor não encontrado ou inválido")
             }
-          
+            
             const novaTurma = new TurmaModel(cod, nome, sala, capacidade, aluno, professor);
             turmas.push(novaTurma);
             console.table(novaTurma);

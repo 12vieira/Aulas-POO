@@ -1,7 +1,13 @@
 import prompt from "prompt-sync";
 import { TurmaController } from "../controllers/index.js";
+import { AlunoView } from "../../Aluno/views/index.js";
+import { ProfessorView } from "../../Professor/views/index.js";
 
+
+const alunoView = new AlunoView();
+const professorView = new ProfessorView();
 const turmaController = new TurmaController();
+
 const input = prompt();
 
 export class TurmaView{
@@ -14,6 +20,20 @@ export class TurmaView{
         const nome = input("Digite o nome: ");
         const sala = input("Digite a sala: ");
         const capacidade = input("Digite a capacidade: ");
+        const totalAlunos = input("Quantos alunos deseja adicionar a essa turma? ")
+        const students = [];
+        const aluno = []
+        for (let i = 0; i < totalAlunos; i++) {
+            students[i] = alunoView.criarAluno().matricula;
+            aluno.push(students[i]); 
+        }
+        const totalProfessores = input("Quantos professores deseja adicionar a essa turma? ")
+        const teachers = [];
+        const professor = [];
+        for (let j = 0; j < totalProfessores; j++) {
+          teachers[i] = professorView.criarProfessor().matricula;
+          professor.push(teachers[i]);
+        }
         turmaController.criar(cod, nome, sala, capacidade, aluno, professor);
       }
       editarTurma() {

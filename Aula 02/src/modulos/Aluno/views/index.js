@@ -16,7 +16,7 @@ export class AlunoView {
     const telefone = input("Digite o telefone: ");
     const senha = input("Digite a senha: ");
     alunoController.criar(matricula, nome, email, telefone, senha);
-  }
+  } 
   editarAluno() {
     const matriculaEditar = input("Digite a matrícula do aluno: ");
     const novoNome = input("Novo nome (deixe em branco para manter o mesmo): ") || null;
